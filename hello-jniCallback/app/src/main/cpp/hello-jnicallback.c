@@ -242,6 +242,14 @@ void*  UpdateTicks(void* context) {
 
         (*env)->CallVoidMethod(env, pctx->mainActivityObj, timerId);
         (*env)->CallVoidMethod(env, pctx->mainActivityObj, method_para_void_return_void_id);
+
+        jstring para_string = (*env)->NewStringUTF(env, "111");
+        jstring return_result__string = (*env)->CallObjectMethod(env, pctx->mainActivityObj, method_para_string_return_string_id,para_string);
+        LOGE("jnicallback return_result__string is : %d",return_result__string);
+        LOGE("jnicallback return_result__string is : %s",(*env)->GetStringUTFChars(env,return_result__string,0));
+
+//        (*env)->CallObjectMethodV(env, pctx->mainActivityObj, method_para_string_return_string_id,"111");
+//        (*env)->CallObjectMethodA(env, pctx->mainActivityObj, method_para_string_return_string_id,"111");
 //        (*env)->CallVoidMethod(env, pctx->mainActivityObj, method_para_string_return_void_id,"");
 
 
