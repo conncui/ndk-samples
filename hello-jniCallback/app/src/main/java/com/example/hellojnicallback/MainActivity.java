@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private String method_para_string_return_string(String para ) {
         Log.e(TAG,"java :"+"method_para_string_return_string");
 
-        return "String --- 1";
+        return "method_para_string_return_string append para:"+para;
     }
 
 
