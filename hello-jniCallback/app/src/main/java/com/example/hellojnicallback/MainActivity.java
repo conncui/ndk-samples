@@ -18,10 +18,11 @@ package com.example.hellojnicallback;
 import androidx.annotation.Keep;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
+    String TAG = "jnicallback";
     int hour = 0;
     int minute = 0;
     int second = 0;
@@ -46,11 +47,48 @@ public class MainActivity extends AppCompatActivity {
         StopTicks();
     }
 
+
+    @Keep
+    private void method_para_void_return_void() {
+        Log.e(TAG,"java "+"");
+        Log.e(TAG,"java :"+"method_para_void_return_void");
+
+    }
+
+
+    @Keep
+    private void method_para_string_return_void(String para) {
+        Log.e(TAG,"java :"+"method_para_string_return_void");
+    }
+
+
+    @Keep
+    private String method_para_void_return_String() {
+        Log.e(TAG,"java :"+"method_para_void_return_String");
+
+        return "String 2";
+    }
+
+    @Keep
+    private int method_para_int_return_int(int para ) {
+
+      return 1;
+    }
+
+    @Keep
+    private String method_para_string_return_string(String para ) {
+        Log.e(TAG,"java :"+"method_para_string_return_string");
+
+        return "String --- 1";
+    }
+
+
     /*
      * A function calling from JNI to update current timer
      */
     @Keep
     private void updateTimer() {
+        Log.e(TAG,"java updateTimer"+System.currentTimeMillis());
         ++second;
         if(second >= 60) {
             ++minute;

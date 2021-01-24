@@ -211,6 +211,13 @@ void*  UpdateTicks(void* context) {
     jmethodID timerId = (*env)->GetMethodID(env, pctx->mainActivityClz,
                                             "updateTimer", "()V");
 
+    // get mainActivity updateTimer function
+    jmethodID method_para_void_return_void_id     = (*env)->GetMethodID(env, pctx->mainActivityClz,"method_para_void_return_void", "()V");
+    jmethodID method_para_void_return_String_id   = (*env)->GetMethodID(env, pctx->mainActivityClz,"method_para_void_return_String", "()Ljava/lang/String;");
+    jmethodID method_para_string_return_void_id   = (*env)->GetMethodID(env, pctx->mainActivityClz,"method_para_string_return_void", "(Ljava/lang/String;)V");
+    jmethodID method_para_string_return_string_id = (*env)->GetMethodID(env, pctx->mainActivityClz,"method_para_string_return_string", "(Ljava/lang/String;)Ljava/lang/String;");
+
+
     struct timeval beginTime, curTime, usedTime, leftTime;
     const struct timeval kOneSecond = {
             (__kernel_time_t)1,
@@ -230,7 +237,13 @@ void*  UpdateTicks(void* context) {
         if (done) {
             break;
         }
+        LOGE("jnicallback CallVoidMethod  timerId is : %d",curTime);
+
+
         (*env)->CallVoidMethod(env, pctx->mainActivityObj, timerId);
+        (*env)->CallVoidMethod(env, pctx->mainActivityObj, method_para_void_return_void_id);
+//        (*env)->CallVoidMethod(env, pctx->mainActivityObj, method_para_string_return_void_id,"");
+
 
         gettimeofday(&curTime, NULL);
         timersub(&curTime, &beginTime, &usedTime);
@@ -239,6 +252,9 @@ void*  UpdateTicks(void* context) {
         sleepTime.tv_sec = leftTime.tv_sec;
         sleepTime.tv_nsec = leftTime.tv_usec * 1000;
 
+
+        LOGE("jnicallback sleepTime.tv_sec is : %d",sleepTime.tv_sec);
+        LOGE("jnicallback curTime : %d",curTime);
         if (sleepTime.tv_sec <= 1) {
             nanosleep(&sleepTime, NULL);
         } else {
