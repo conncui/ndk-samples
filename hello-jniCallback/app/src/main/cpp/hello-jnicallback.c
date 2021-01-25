@@ -217,6 +217,11 @@ void*  UpdateTicks(void* context) {
     jmethodID method_para_string_return_void_id   = (*env)->GetMethodID(env, pctx->mainActivityClz,"method_para_string_return_void", "(Ljava/lang/String;)V");
     jmethodID method_para_string_return_string_id = (*env)->GetMethodID(env, pctx->mainActivityClz,"method_para_string_return_string", "(Ljava/lang/String;)Ljava/lang/String;");
 
+    LOGE("jnicallback CallVoidMethod  method_para_void_return_void_id is : %d",method_para_void_return_void_id);
+    LOGE("jnicallback CallVoidMethod  method_para_void_return_String_id is : %d",method_para_void_return_String_id);
+    LOGE("jnicallback CallVoidMethod  method_para_string_return_void_id is : %d",method_para_string_return_void_id);
+    LOGE("jnicallback CallVoidMethod  method_para_string_return_string_id is : %d",method_para_string_return_string_id);
+
 
     struct timeval beginTime, curTime, usedTime, leftTime;
     const struct timeval kOneSecond = {
@@ -281,7 +286,7 @@ void*  UpdateTicks(void* context) {
  * Interface to Java side to start ticks, caller is from onResume()
  */
 JNIEXPORT void JNICALL
-Java_com_example_hellojnicallback_MainActivity_startTicks(JNIEnv *env, jobject instance) {
+Java_com_example_hellojnicallback_MainActivity_startTicks(JNIEnv *env, jobject instance,jobject para_1) {
     pthread_t       threadInfo_;
     pthread_attr_t  threadAttr_;
 
