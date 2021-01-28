@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         hour = minute = second = 0;
         ((TextView)findViewById(R.id.hellojniMsg)).setText(stringFromJNI());
-        startTicks("11211");
+//        startTicks("11211");
+        createThread("create thread para");
     }
 
     @Override
@@ -47,6 +48,23 @@ public class MainActivity extends AppCompatActivity {
         StopTicks();
     }
 
+
+    @Keep
+    private Object method_para_long_return_obj(Long para) {
+        Log.e(TAG,"java "+"");
+        Log.e(TAG,"java :"+"method_para_long_return_obj");
+        return null;
+    }
+    @Keep
+    private Object method_para_void_return_obj() {
+        Log.e(TAG,"java "+"");
+        Log.e(TAG,"java :"+"method_para_void_return_obj");
+        return null;
+    }    @Keep
+    private void method_para_long_return_void(long para) {
+        Log.e(TAG,"java "+"");
+        Log.e(TAG,"java :"+"method_para_long_return_void");
+    }
 
     @Keep
     private void method_para_void_return_void() {
@@ -113,5 +131,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public native  String stringFromJNI();
     public native void startTicks(String para1);
+    public native void createThread(String para1);
     public native void StopTicks();
 }
