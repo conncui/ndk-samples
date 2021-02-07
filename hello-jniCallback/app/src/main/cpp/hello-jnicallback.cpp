@@ -58,7 +58,8 @@ pthread_mutex_t  lock;
  *
  *   hello-jniCallback/app/src/main/java/com/example/hellojnicallback/MainActivity.java
  */
-extern "C" JNIEXPORT jstring JNICALL
+extern "C" {
+JNIEXPORT jstring JNICALL
 Java_com_example_hellojnicallback_MainActivity_stringFromJNI( JNIEnv* env, jobject thiz )
 {
 #if defined(__arm__)
@@ -222,6 +223,8 @@ void*  UpdateTicks(void* context) {
 
     // get mainAc
     // tivity updateTimer function
+    jmethodID method_para_long_return_long_id     = env->GetMethodID( pctx->mainActivityClz,"method_para_long_return_long", "(Ljava/lang/Long;)Ljava/lang/Long;");
+    jmethodID method_para_long_return_long_id_j     = env->GetMethodID( pctx->mainActivityClz,"method_para_long_return_long", "(Ljava/lang/Long;)Ljava/lang/Long;");
     jmethodID method_para_long_return_obj_id     = env->GetMethodID( pctx->mainActivityClz,"method_para_long_return_obj", "(Ljava/lang/Long;)Ljava/lang/Object;");
 //    jmethodID method_para_void_return_obj_id     = env->GetMethodID( pctx->mainActivityClz,"method_para_void_return_obj", "()Ljava/lang/Object;");
     jmethodID method_para_long_return_void_id     = env->GetMethodID( pctx->mainActivityClz,"method_para_long_return_void", "(J)V");
@@ -231,6 +234,8 @@ void*  UpdateTicks(void* context) {
     jmethodID method_para_string_return_void_id   = env->GetMethodID( pctx->mainActivityClz,"method_para_string_return_void", "(Ljava/lang/String;)V");
     jmethodID method_para_string_return_string_id = env->GetMethodID( pctx->mainActivityClz,"method_para_string_return_string", "(Ljava/lang/String;)Ljava/lang/String;");
 
+    LOGE("jnicallback CallVoidMethod  method_para_long_return_long_id is : %d",method_para_long_return_long_id);
+    LOGE("jnicallback CallVoidMethod  method_para_long_return_long_id_j is : %d",method_para_long_return_long_id_j);
     LOGE("jnicallback CallVoidMethod  method_para_long_return_obj is : %d",method_para_long_return_obj_id);
 //    LOGE("jnicallback CallVoidMethod  method_para_void_return_obj is : %d",method_para_void_return_obj_id);
     LOGE("jnicallback CallVoidMethod  method_para_long_return_void is : %d",method_para_long_return_void_id);
@@ -303,8 +308,10 @@ void*  UpdateTicks(void* context) {
 /*
  * Interface to Java side to start ticks, caller is from onResume()
  */
+
 JNIEXPORT void JNICALL
-Java_com_example_hellojnicallback_MainActivity_startTicks(JNIEnv *env, jobject instance,jobject para_1) {
+Java_com_example_hellojnicallback_MainActivity_startTicks(JNIEnv *env, jobject instance,
+                                                          jstring para_1) {
     pthread_t       threadInfo_;
     pthread_attr_t  threadAttr_;
 
@@ -384,4 +391,5 @@ Java_com_example_hellojnicallback_MainActivity_createThread(JNIEnv *env, jobject
     pthread_attr_destroy(&threadAttr_);
 
     (void)result;
+}
 }
